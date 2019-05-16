@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XamarinGroup.Models;
 using XamarinGroup.Repository;
 
 namespace XamarinGroup
@@ -20,20 +21,24 @@ namespace XamarinGroup
 
         async void OnButtonClicked(object sender, EventArgs e)
         {
-            if (!string.IsNullOrWhiteSpace(cityEntry.Text))
+
+            string query = searchquery.Text;
+
+            if (!string.IsNullOrWhiteSpace(query))
             {
-                WeatherData weatherData = await _restService.GetWeatherDataAsync(GenerateRequestUri(Constants.OpenWeatherMapEndpoint));
-                BindingContext = weatherData;
+                Search SearchData = await _GRepo.GetSearchMovie(this.RequestUri(_GRepo.SearchEndpoint), query);
+                BindingContext = SearchData;
             }
         }
+        //?api_key=11b2435829c14693e68170a0500f2746&language=en-US&query=Titanic&page=1&include_adult=false
 
-        string GenerateRequestUri(string endpoint)
+        public string RequestUri(string endpoint , string query)
         {
             string requestUri = endpoint;
-            requestUri += $"?q={cityEntry.Text}";
-            requestUri += "&units=imperial"; // or units=metric
-            requestUri += $"&APPID={Constants.OpenWeatherMapAPIKey}";
+            requestUri += $"?api_key=11b2435829c14693e68170a0500f2746&language=en-US&query=" + query + "&page=1&include_adult=false";
             return requestUri;
         }
+
+
     }
 }

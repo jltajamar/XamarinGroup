@@ -12,7 +12,8 @@ namespace XamarinGroup.Repository
     public class GroupRepository
     {
         HttpClient _client;
-        string Endpoint = "https://api.themoviedb.org/3/search/movie?api_key=11b2435829c14693e68170a0500f2746&language=en-US&query=Titanic&page=1&include_adult=false";
+        //public string SearchEndpoint = "https://api.themoviedb.org/3/search/movie?api_key=11b2435829c14693e68170a0500f2746&language=en-US&query=Titanic&page=1&include_adult=false";
+        public string SearchEndpoint = "https://api.themoviedb.org/3/search/movie";
 
         //string APIKey = "81dbb02a439114a3128632faa0a71620";
 
@@ -24,7 +25,7 @@ namespace XamarinGroup.Repository
 
         }
 
-        public async Task<Search> GetSearchMovie(string uri)
+        public async Task<Search> GetSearchMovie(string uri, string query)
         {
             Search SearchData = null;
             try
